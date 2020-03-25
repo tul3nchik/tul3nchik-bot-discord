@@ -3,6 +3,9 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 import random as r
+import re
+
+
 
 h1 = [0] * 21
 h2 = [0] * 21
@@ -146,25 +149,26 @@ class MyClient(discord.Client):
 					coin = ' орёл.'
 				await chmsg.send('>>> **Монетка :yellow_circle:** \nВыпал%s' % coin)
 			if ('анек' in msg):
-
+				#await chmsg.send('```bash\n "Загрузка, анекдот сейчас появится..."```')
 				site= "http://www.anekdot.ru/random/anekdot/"
 				hdr = {'User-Agent': 'Mozilla/5.0'}
 				req = Request(site,headers=hdr)
 				page = urlopen(req)
 				soup = BeautifulSoup(page, 'html.parser')
 				humor = soup.find('div', {'class': 'text'}).get_text()
+
+
+				pagenum = str(r.randint(2750, 5829))
+				sitetg = str("https://tlgrm.ru/channels/@myfavoritejumoreski/" + pagenum)
+				'''
+				pagetg = urlopen(Request(sitetg,headers={'User-Agent': 'Mozilla/5.0'}))
+				humortg = BeautifulSoup(pagetg, 'html.parser').find('div', 'cpost')#).get_text()'''
+
 				print("debug, random humor value: ", humor)
+				print("pagelink: ", sitetg)
 
-				pagenum = str(r.randint(20, 30110))
-
-				sitevk = str("https://vk.com/wall-92876084?offset=" + pagenum + "&own=1")
-				pagevk = urlopen(Request(sitevk,headers={'User-Agent': 'Mozilla/5.0'}))
-				print(pagevk)
-				soupvk = BeautifulSoup(pagevk, 'html.parser')
-				humorvk = soupvk.find('div', {'class': 'pi_text'}).get_text()
-				print("debug, random humorvk value: ", humorvk)
-
-				await chmsg.send('>>> **Рандомный анекдот с сайта анекдот.ру:**\n```{0}```'.format(humor))
+				await chmsg.send('>>> **Рандомный анекдот с сайта анекдот.ру:**\n```{0}```\n**Рандомная юмореска:**\n{1}'.format(humor, sitetg))
+				
 
 			if ('краш' in msg or 'crash' in msg):
 				crind = round(r.uniform(0,10),2)
@@ -182,6 +186,6 @@ class MyClient(discord.Client):
 				else:
 					await chmsg.send('>>> {0} проиграл/а.'.format(user))
 			if ('help' in msg):
-				await chmsg.send('>>> **Команды tul3nchik_bot**\nРандомно сгенерированная частушка: *частушку или *Частушку\nИгра "краш": *краш или *crash (ставка) (коэффициент)\nКинуть монетку: *монетка или *рандом')
+				await chmsg.send('>>> **Команды tul3nchik_bot**\nРандомно сгенерированная частушка: --частушку или --Частушку\nИгра "краш": --краш или --crash (ставка) (коэффициент)\nКинуть монетку: --монетка или --рандом\nПрочитать случайный анекдот: --анек')
 client = MyClient()
-client.run('NjkyMDQ0NDQzMTM3NzM2NzY0.XnoyuQ.hK-ctmoGHPA9nMk464JXKaq69ZM')
+client.run('NjkyMDQ0NDQzMTM3NzM2NzY0.XntzAg.EvZ-KpO-U0tzmTitZNJHKnXBhXY')
