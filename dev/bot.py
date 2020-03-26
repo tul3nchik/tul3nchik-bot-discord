@@ -5,8 +5,6 @@ from urllib.request import Request, urlopen
 import random as r
 import re
 
-
-
 h1 = [0] * 21
 h2 = [0] * 21
 h3 = [0] * 21
@@ -148,7 +146,7 @@ class MyClient(discord.Client):
 				else:
 					coin = ' орёл.'
 				await chmsg.send('>>> **Монетка :yellow_circle:** \nВыпал%s' % coin)
-			if ('анек' in msg):
+			if (msg == 'анек'):
 				#await chmsg.send('```bash\n "Загрузка, анекдот сейчас появится..."```')
 				site= "http://www.anekdot.ru/random/anekdot/"
 				hdr = {'User-Agent': 'Mozilla/5.0'}
@@ -167,7 +165,7 @@ class MyClient(discord.Client):
 				print("debug, random humor value: ", humor)
 				print("pagelink: ", sitetg)
 
-				await chmsg.send('>>> **Рандомный анекдот с сайта анекдот.ру:**\n```{0}```\n**Рандомная юмореска:**\n{1}'.format(humor, sitetg))
+				await chmsg.send('>>> **Рандомный анекдот с сайта анекдот.ру:**\n```{0}```\n**Рандомная юмореска: **{1}'.format(humor, sitetg))
 				
 
 			if ('краш' in msg or 'crash' in msg):
@@ -185,7 +183,14 @@ class MyClient(discord.Client):
 					await chmsg.send('>>> Выигрыш {0}`а: {1:.2f}$.'.format(user, result))
 				else:
 					await chmsg.send('>>> {0} проиграл/а.'.format(user))
-			if ('help' in msg):
-				await chmsg.send('>>> **Команды tul3nchik_bot**\nРандомно сгенерированная частушка: --частушку или --Частушку\nИгра "краш": --краш или --crash (ставка) (коэффициент)\nКинуть монетку: --монетка или --рандом\nПрочитать случайный анекдот: --анек')
+			if (msg == 'help'):
+				await chmsg.send(
+'''\n
+> **Команды tul3nchik_bot**
+> *Префикс бота:* "--"
+> *Рандомно сгенерированная частушка:* частушку или Частушку
+> *Игра "краш":* "краш" или "crash" (ставка) (коэффициент)
+> *Кинуть монетку:* монетка или рандом
+> *Прочитать случайный анекдот:* анек''')
 client = MyClient()
-client.run('NjkyMDQ0NDQzMTM3NzM2NzY0.XntzAg.EvZ-KpO-U0tzmTitZNJHKnXBhXY')
+client.run('NjkyMDQ0NDQzMTM3NzM2NzY0.Xnug2A.2XAy9x7wI8taLA3DzWM3Yay3XII')
